@@ -1,3 +1,12 @@
+# Informations
+
+Chacun des membres du groupe a fait sa propre version du projet.
+
+- [Arsène Dobrovolsky](https://github.com/ethlny/gilded-rose-groupe-17/tree/dev-arsene-dobrovolskyy)
+- [Ethan Launay](https://github.com/ethlny/gilded-rose-groupe-17/tree/dev-ethan-launay)
+- [Sandie Ouallet](https://github.com/ethlny/gilded-rose-groupe-17/tree/dev-sandie-ouallet)
+- [Abdramane Diarra](https://github.com/ethlny/gilded-rose-groupe-17/tree/dev-abdramane-diarra)
+
 # gilded-rose
 
 ## Specification
