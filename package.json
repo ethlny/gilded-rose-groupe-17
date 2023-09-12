@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --coverage",
+    "test:once": "jest --coverage",
     "format": "prettier --write \"src/**/*.ts\""
   },
   "devDependencies": {

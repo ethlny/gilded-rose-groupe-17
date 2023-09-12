@@ -1,69 +1,69 @@
 export class Item {
-  name: string;
-  sellIn: number;
-  quality: number;
+  name: string
+  sellIn: number
+  quality: number
 
-  constructor(name, sellIn, quality) {
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
+  constructor(name: string, sellIn: number, quality: number) {
+    this.name = name
+    this.sellIn = sellIn
+    this.quality = quality
   }
 }
 
-export class GildedRose {
-  items: Array<Item>;
 
-  constructor(items = [] as Array<Item>) {
-    this.items = items;
+export default class GildedRose {
+  items: Array<Item>
+
+  constructor(items: Array<Item> = []) {
+    this.items = items
   }
 
-  updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != "Aged Brie" && this.items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            this.items[i].quality = this.items[i].quality - 1;
+  updateQuality(): Array<Item> {
+    for (const item of this.items) {
+      // Gérer la mise à jour de la qualité en fonction du nom de l'élément
+      switch (item.name) {
+        case 'Aged Brie':
+          // La qualité de "Aged Brie" augmente si elle est inférieure à 50
+          if (item.quality < 50) {
+            item.quality += 1
           }
-        }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
+          break
+        case 'Backstage passes to a TAFKAL80ETC concert':
+          // La qualité de 'Backstage passes' augmente selon les règles du readme
+          if (item.quality < 50) {
+            item.quality += 1
+            if (item.sellIn < 11 && item.quality < 50) {
+              item.quality += 1
             }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
+            if (item.sellIn < 6 && item.quality < 50) {
+              item.quality += 1
             }
           }
-        }
+          // Si la date de vente est passée, la qualité passe a 0
+          if (item.sellIn < 0) {
+            item.quality = 0
+          }
+          break
+        case 'Sulfuras, Hand of Ragnaros':
+          // Sulfuras n'a pas de changement de qualité ni de date de vente
+          break
+        default:
+          // Pour tous les autres éléments, la qualité diminue si elle est supérieure à zéro
+          if (item.quality > 0) {
+            item.quality -= 1
+          }
+          // Si la date de vente est passée, la qualité diminue à nouveau
+          if (item.sellIn < 0 && item.quality > 0) {
+            item.quality -= 1
+          }
       }
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != "Aged Brie") {
-          if (this.items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
-        }
+
+      // Réduire la date de vente de 1, sauf pour Sulfuras
+      if (item.name !== 'Sulfuras, Hand of Ragnaros') {
+        item.sellIn -= 1
       }
     }
 
-    return this.items;
+    return this.items
   }
 }
